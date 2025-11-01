@@ -2,9 +2,10 @@ import { neon } from "@neondatabase/serverless"
 
 const sql = neon(process.env.NEON_NEON_DATABASE_URL!)
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const app = await sql`SELECT * FROM generated_apps WHERE id = ${params.id}`
+    const { id } = await params
+    const app = await sql`SELECT * FROM generated_apps WHERE id = ${id}`
 
     if (app.length === 0) {
       return Response.json({ error: "App not found" }, { status: 404 })
@@ -17,9 +18,10 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    await sql`DELETE FROM generated_apps WHERE id = ${params.id}`
+    const { id } = await params
+    await sql`DELETE FROM generated_apps WHERE id = ${id}`
     return Response.json({ success: true })
   } catch (error: any) {
     console.error("[v0] Error deleting app:", error.message, error)
