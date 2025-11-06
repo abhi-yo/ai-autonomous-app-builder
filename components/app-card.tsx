@@ -2,11 +2,13 @@
 
 import { useState } from "react"
 import { CodeViewer } from "./code-viewer"
-import { TrashIcon, CodeBracketIcon, ChevronDownIcon, ChevronUpIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline"
+import { PreviewViewer } from "./preview-viewer"
+import { TrashIcon, CodeBracketIcon, ChevronDownIcon, ChevronUpIcon, ArrowDownTrayIcon, EyeIcon } from "@heroicons/react/24/outline"
 
 export function AppCard({ app, onDelete }: { app: any; onDelete?: (id: string) => void }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [showCode, setShowCode] = useState(false)
+  const [showPreview, setShowPreview] = useState(false)
 
   const statusColors = {
     pending: "bg-muted text-muted-foreground border border-border",
@@ -138,6 +140,13 @@ export function AppCard({ app, onDelete }: { app: any; onDelete?: (id: string) =
                 {showCode ? "Hide" : "View"} Code
               </button>
               <button
+                onClick={() => setShowPreview(!showPreview)}
+                className="px-3 py-1.5 text-xs border border-border rounded hover:bg-muted transition-colors flex items-center gap-1"
+              >
+                <EyeIcon className="w-3.5 h-3.5" />
+                {showPreview ? "Hide" : "View"} Preview
+              </button>
+              <button
                 onClick={handleExport}
                 className="px-3 py-1.5 text-xs border border-border rounded hover:bg-muted transition-colors flex items-center gap-1"
               >
@@ -181,7 +190,8 @@ export function AppCard({ app, onDelete }: { app: any; onDelete?: (id: string) =
         </div>
       )}
 
-      {showCode && app.app_code && <CodeViewer code={app.app_code} appName={app.app_name} />}
+      {showCode && app.app_code && <CodeViewer code={app.app_code} appName={app.app_name} />} 
+      {showPreview && <PreviewViewer appId={app.id} />}
     </div>
   )
 }

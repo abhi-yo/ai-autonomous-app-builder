@@ -78,7 +78,7 @@ export default function LandingPage() {
 
       <section id="features" className="relative py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="border border-border bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500">
+          <div className="border border-border bg-muted/50 dark:bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500">
             <div className="grid lg:grid-cols-2">
               <div className="p-12 lg:border-r border-border">
                 <h3 className="text-4xl md:text-5xl font-medium tracking-tight mb-4">
@@ -103,7 +103,7 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="mt-8 p-4 border border-border bg-background/50 font-mono text-xs">
+                <div className="mt-8 p-4 border border-border bg-muted/60 dark:bg-background/50 font-mono text-xs">
                   <div className="grid grid-cols-3 gap-4">
                     <div>
                       <div className="text-muted-foreground mb-1">Step 1</div>
@@ -121,14 +121,14 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="p-12 bg-background/20">
+              <div className="p-12 bg-muted/30 dark:bg-background/20">
                 <h4 className="text-2xl font-medium mb-6">Custom Building Rules</h4>
                 <p className="text-muted-foreground mb-6">
                   Define your own rules to guide the AI generation process. Every rule is automatically applied to generated apps.
                 </p>
 
                 <div className="space-y-3">
-                  <div className="border border-border bg-background/30 p-4">
+                  <div className="border border-border bg-muted/40 dark:bg-background/30 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium">Use TypeScript</span>
                       <span className="text-xs text-purple-400">UI</span>
@@ -136,7 +136,7 @@ export default function LandingPage() {
                     <p className="text-xs text-muted-foreground">All apps must use TypeScript with proper type definitions</p>
                   </div>
 
-                  <div className="border border-border bg-background/30 p-4">
+                  <div className="border border-border bg-muted/40 dark:bg-background/30 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium">Dark Mode Support</span>
                       <span className="text-xs text-purple-400">UI</span>
@@ -144,7 +144,7 @@ export default function LandingPage() {
                     <p className="text-xs text-muted-foreground">Include light and dark theme with proper color variables</p>
                   </div>
 
-                  <div className="border border-border bg-background/30 p-4">
+                  <div className="border border-border bg-muted/40 dark:bg-background/30 p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium">API Error Handling</span>
                       <span className="text-xs text-purple-400">Backend</span>
@@ -177,7 +177,7 @@ export default function LandingPage() {
 
       <section id="how-it-works" className="relative py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="border border-border bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500">
+          <div className="border border-border bg-muted/50 dark:bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500">
             <div className="p-12">
               <h3 className="text-4xl md:text-5xl font-medium tracking-tight mb-4">
                 Built for people who like tidy systems.
@@ -207,7 +207,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="border border-border bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500 border-t-0">
+          <div className="border border-border bg-muted/50 dark:bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500 border-t-0">
             <div className="p-12">
               <h3 className="text-3xl md:text-4xl font-medium tracking-tight mb-4">
                 Three steps, that's it.
@@ -220,7 +220,7 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-2 border-t border-border">
               <div className="p-12 md:border-r border-border">
                 <h4 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Configuration</h4>
-                <div className="border border-border bg-background/50 p-6 font-mono text-xs space-y-2">
+                <div className="border border-border bg-muted/60 dark:bg-background/50 p-6 font-mono text-xs space-y-2">
                   <div><span className="text-muted-foreground">1.</span> <span className="text-foreground">Set your Google AI API key</span></div>
                   <div><span className="text-muted-foreground">2.</span> <span className="text-foreground">Configure auto-build schedule (every 2 days)</span></div>
                   <div><span className="text-muted-foreground">3.</span> <span className="text-foreground">Save configuration</span></div>
@@ -229,7 +229,7 @@ export default function LandingPage() {
 
               <div className="p-12">
                 <h4 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Building Rules</h4>
-                <div className="border border-border bg-background/50 p-6 font-mono text-xs space-y-2">
+                <div className="border border-border bg-muted/60 dark:bg-background/50 p-6 font-mono text-xs space-y-2">
                   <div><span className="text-muted-foreground">1.</span> <span className="text-foreground">Add rule: "Use TypeScript"</span></div>
                   <div><span className="text-muted-foreground">2.</span> <span className="text-foreground">Set category: UI / Backend / General</span></div>
                   <div><span className="text-muted-foreground">3.</span> <span className="text-foreground">Rules auto-apply to all generated apps</span></div>
@@ -238,7 +238,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="border border-border bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500 border-t-0">
+          <div className="border border-border bg-muted/50 dark:bg-black/40 backdrop-blur-sm shadow-[0_0_50px_-12px] shadow-purple-500/20 hover:shadow-[0_0_80px_-10px] hover:shadow-purple-600/40 hover:border-purple-500/30 transition-all duration-500 border-t-0">
             <div className="grid lg:grid-cols-2">
               <div className="p-12 lg:border-r border-border">
                 <h3 className="text-3xl md:text-4xl font-medium tracking-tight mb-4">
@@ -268,9 +268,9 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="p-12 bg-background/20">
+              <div className="p-12 bg-muted/30 dark:bg-background/20">
                 <h4 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">Example Output</h4>
-                <div className="border border-border bg-background/50 p-6 font-mono text-xs overflow-x-auto space-y-1">
+                <div className="border border-border bg-muted/60 dark:bg-background/50 p-6 font-mono text-xs overflow-x-auto space-y-1">
                   <div><span className="text-purple-400">---</span> <span className="text-muted-foreground">FILE: app/page.tsx</span></div>
                   <div><span className="text-green-400">"use client"</span></div>
                   <div></div>
@@ -294,7 +294,7 @@ export default function LandingPage() {
 
       <section className="relative py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="border border-border bg-black/40 backdrop-blur-sm p-16 shadow-[0_0_50px_-12px] shadow-purple-500/20 text-center">
+          <div className="border border-border bg-muted/50 dark:bg-black/40 backdrop-blur-sm p-16 shadow-[0_0_50px_-12px] shadow-purple-500/20 text-center">
             <h3 className="text-4xl md:text-5xl font-medium tracking-tight mb-6">
               Ready to build your next app?
             </h3>
