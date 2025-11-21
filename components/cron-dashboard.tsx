@@ -28,10 +28,16 @@ export function CronDashboard() {
   const fetchCronStatus = async () => {
     try {
       const response = await fetch("/api/cron/status")
+      if (!response.ok) {
+        console.error("Failed to fetch cron status:", await response.text())
+        setCrons([])
+        return
+      }
       const data = await response.json()
-      setCrons(data.crons)
+      setCrons(Array.isArray(data.crons) ? data.crons : [])
     } catch (error) {
       console.error("Failed to fetch cron status:", error)
+      setCrons([])
     } finally {
       setIsLoading(false)
     }
@@ -71,17 +77,26 @@ export function CronDashboard() {
   }
 
   const handleManualTrigger = async () => {
+    console.log("[CronDashboard] Manual trigger clicked")
     setIsTriggering(true)
     try {
+      console.log("[CronDashboard] Calling /api/cron/trigger...")
       const response = await fetch("/api/cron/trigger", {
         method: "POST",
       })
       const data = await response.json()
+      console.log("[CronDashboard] Trigger response:", { ok: response.ok, status: response.status, data })
+      
       if (response.ok) {
+        console.log("[CronDashboard] Trigger successful, refreshing status...")
         setTimeout(() => fetchCronStatus(), 2000)
+      } else {
+        console.error("[CronDashboard] Trigger failed:", data)
+        alert(`Failed to trigger: ${data.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error("Failed to trigger cron:", error)
+      console.error("[CronDashboard] Failed to trigger cron:", error)
+      alert(`Error: ${error}`)
     } finally {
       setIsTriggering(false)
     }
