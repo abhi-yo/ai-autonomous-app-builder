@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     console.log("[v0] Generating ideas with Gemini 2.5 Flash...")
 
     const { text: ideasText } = await generateText({
-      model: google("gemini-2.0-flash-exp"),
+      model: google("gemini-2.5-flash"),
       prompt: `Generate ${count} unique, SUBSTANTIAL web app ideas that could be profitable SaaS products. 
 
 CRITICAL: These must be apps that require REAL FUNCTIONALITY, not just simple forms or display pages.
