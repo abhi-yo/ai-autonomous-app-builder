@@ -64,7 +64,7 @@ Return ONLY a JSON array with scores (no markdown, no explanations):
 Calculate totalScore as sum of all 5 scores. Prioritize high-complexity, high-functionality apps.`
 
     const { text: evaluationText } = await generateText({
-      model: google("gemini-2.0-flash-exp"),
+      model: google("gemini-2.5-flash"),
       prompt: evaluationPrompt,
       temperature: 0.7,
     })
