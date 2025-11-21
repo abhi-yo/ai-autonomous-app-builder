@@ -4,6 +4,55 @@ import { neon } from "@neondatabase/serverless"
 
 const sql = neon(process.env.NEON_NEON_DATABASE_URL!)
 
+// Fix common syntax errors in generated code
+function sanitizeGeneratedCode(code: string): string {
+  let sanitized = code
+
+  // Remove file delimiters that might have been included in the code
+  // These patterns like "--- FILE: path/to/file ---" break the syntax
+  sanitized = sanitized.replace(/^---\s*FILE:.*?---\s*$/gm, '')
+  sanitized = sanitized.replace(/^```[\w]*\s*$/gm, '') // Remove code fence markers
+  
+  // Remove any backticks used as delimiters (``` at start/end of sections)
+  sanitized = sanitized.split('\n').filter(line => {
+    const trimmed = line.trim()
+    return trimmed !== '```' && !trimmed.match(/^```[\w]+$/)
+  }).join('\n')
+
+  // Fix template literals inside JSX that cause parsing issues
+  // Replace problematic patterns like {`${value}%`} with {value + '%'}
+  sanitized = sanitized.replace(
+    /\{([^}]*?)`\$\{([^}]+?)\}([^`]*?)`\}/g,
+    (match, before, expr, after) => {
+      // If there's content before or after the interpolation, concatenate properly
+      if (before || after) {
+        const parts = []
+        if (before) parts.push(`'${before}'`)
+        parts.push(expr)
+        if (after) parts.push(`'${after}'`)
+        return `{${parts.join(' + ')}}`
+      }
+      return `{${expr}}`
+    }
+  )
+
+  // Fix double dollar signs ($$) that can confuse parsers
+  sanitized = sanitized.replace(/\$\$/g, '$')
+
+  // Fix unescaped quotes in JSX attributes
+  sanitized = sanitized.replace(
+    /(\w+)=\{`([^`]*)`\}/g,
+    (match, attr, value) => {
+      if (!value.includes('${')) {
+        return `${attr}="${value}"`
+      }
+      return match
+    }
+  )
+
+  return sanitized
+}
+
 export async function POST(req: Request) {
   let appId: string | null = null
   let errorConfigId: string | null = null
@@ -65,6 +114,13 @@ TECHNICAL REQUIREMENTS:
 - Add smooth animations and transitions
 - Make it fully responsive (mobile, tablet, desktop)
 
+IMPORTANT SYNTAX RULES:
+- In JSX expressions, avoid template literals with dollar-sign interpolation inside curly braces
+- Instead use string concatenation with the plus operator
+- Use proper JSX syntax for all expressions
+- Escape special characters correctly
+- Ensure all JSX is valid and parseable
+
 CODE STRUCTURE:
 - Modular, reusable components
 - Clear separation of concerns
@@ -78,8 +134,17 @@ WHAT NOT TO DO:
 ❌ NO hardcoded data that should be dynamic
 ❌ NO incomplete features
 ❌ NO lazy instructions like "Cook according to your needs"
+❌ NO file delimiters like "--- FILE: path ---" or code fence markers
+❌ NO markdown formatting - output ONLY the raw code
 
-Return ONLY valid TypeScript/JSX code. No markdown formatting, no explanations.`
+OUTPUT FORMAT:
+Return ONLY the complete, valid TypeScript/JSX code for main.tsx. 
+Do NOT include:
+- File path comments (--- FILE: ... ---)
+- Code fence markers (backticks)
+- Explanations or descriptions
+- Multiple file sections
+Just output the raw, executable code.`
 
     const userPrompt = `Build a COMPLETE, FULLY FUNCTIONAL Next.js app for: ${app_idea}
 
@@ -109,22 +174,25 @@ Make this app impressive, complete, and truly functional. This should be a real 
 
     // Call AI to generate app code
     const { text: generatedCode } = await generateText({
-      model: google("gemini-2.0-flash-exp"),
+      model: google("gemini-2.5-flash"),
       system: systemPrompt,
       prompt: userPrompt,
       temperature: 0.8,
     })
 
+    // Sanitize the generated code to fix common syntax issues
+    const sanitizedCode = sanitizeGeneratedCode(generatedCode)
+
     await sql`
       UPDATE generated_apps 
-      SET app_code = ${generatedCode}, app_status = ${"completed"}, completed_at = NOW() 
+      SET app_code = ${sanitizedCode}, app_status = ${"completed"}, completed_at = NOW() 
       WHERE id = ${appId}
     `
 
     return Response.json({
       id: appId,
       success: true,
-      code: generatedCode,
+      code: sanitizedCode,
     })
   } catch (error: any) {
     console.error("[v0] Error generating app:", error.message, error)
