@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     // Generate a random app idea
     const { text: idea } = await generateText({
-      model: google("gemini-2.0-flash-exp"),
+      model: google("gemini-2.5-flash"),
       prompt: `Generate a unique, creative but simple web app idea. The idea should be:
 - Something that can be built in ~5 minutes as a Next.js app
 - Useful and interesting
@@ -34,7 +34,6 @@ Name: Color Palette Generator
 Description: Generate and export beautiful color palettes
 
 Generate a NEW idea different from the examples above.`,
-      maxTokens: 200,
       temperature: 0.8,
     })
 
