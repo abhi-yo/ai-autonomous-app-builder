@@ -13,9 +13,8 @@ export async function GET() {
     console.log("[v0] Testing Google AI API...")
 
     const { text } = await generateText({
-      model: google("gemini-2.0-flash-exp"),
+      model: google("gemini-2.5-flash"),
       prompt: "Say 'Hello, World!' and nothing else.",
-      maxTokens: 10,
     })
 
     return Response.json({ 
